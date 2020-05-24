@@ -1,5 +1,0 @@
-const user = {
-  name: 'kamal'
-};
-
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNjcmlwdC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQSIsImZpbGUiOiJhbGwuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCB1c2VyID0ge1xyXG4gIG5hbWU6ICdrYW1hbCdcclxufTtcclxuIl19
