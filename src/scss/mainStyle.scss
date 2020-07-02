@@ -1,0 +1,14 @@
+@import 'base/variables';
+
+body {
+  background: $bgcolor;
+}
+
+h1 {
+  font-size: 30px;
+  color: $mainheadingcolor;
+}
+
+::placeholder {
+  color: $placeholderColor;
+}

@@ -1,4 +1,3 @@
 const user = {
-  name: 'kamal',
-  job: 'student'
+  name: 'test',
 };
