@@ -1,5 +1,5 @@
 {
-  "name": "start-project",
+  "name": "social-network-theme",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,6 +11,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
+    "@fortawesome/fontawesome": "^1.1.8",
     "autoprefixer": "^9.7.6",
     "browser-sync": "^2.26.7",
     "cssnano": "^4.1.10",
@@ -30,6 +31,8 @@
     "yargs": "^15.3.1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "file-exists": "^5.0.1",
     "imagemin-pngquant": "^8.0.0",
     "node-sass": "^4.14.1"
   }

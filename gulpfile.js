@@ -26,6 +26,7 @@ const del = require('del');
 // compress images
 const imagemin = require('gulp-imagemin');
 const imageminPngquant = require('imagemin-pngquant');
+const fileExists = require('file-exists');
 
 const srcFiles = {
   mainScssPath: 'src/scss/**/mainStyle.scss',
@@ -34,14 +35,16 @@ const srcFiles = {
   jsPath: 'src/js/**/*.js',
   htmlPath: './**/*.html',
   imagesPath: 'src/images/*',
-  indexPath: './index.html'
+  indexPath: './index.html',
+  webFontsPath: './node_modules/@fortawesome/fontawesome-free/webfonts/*'
 };
 
 const distFiles = {
   distPath: 'dist/',
   distImagesPath: 'dist/images',
   distCSSPath: 'dist/css',
-  distJSPath: 'dist/js'
+  distJSPath: 'dist/js',
+  distWebfonts: 'dist/webfonts'
 };
 
 // flag to Gulp to run different tasks for prod, dev
@@ -52,6 +55,24 @@ const gulpif = require('gulp-if');
 // create production parameter to Gulp Task from command line
 // run by using `gulp build --production`
 const production = argv.production;
+
+// check fontawesome webfonts exist then make a copy in dist
+const fontawesomeWebfont =
+  './node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.eot';
+
+// to check if file exist or not for testing purposes
+console.log(fileExists.sync(fontawesomeWebfont)); // OUTPUTS: true or false
+
+// copy webfonts folder if it is existed
+// because our task contain asynchronous code
+// use async before our task
+// to avoid getting this error Did you forget to signal async completion
+async function copyfontawesomeWebfontsTask() {
+  return gulpif(
+    fileExists.sync(fontawesomeWebfont),
+    src([srcFiles.webFontsPath]).pipe(dest(distFiles.distWebfonts))
+  );
+}
 
 // for cachebust
 const cachebust = require('gulp-cache-bust');
@@ -99,6 +120,7 @@ function jsTask() {
         )
       )
       .pipe(concat('all.js'))
+
       .pipe(gulpif(production, rename({ extname: '.min.js' })))
       .pipe(gulpif(production, uglify()))
       .pipe(gulpif(!production, sourcemaps.write('./')))
@@ -106,20 +128,20 @@ function jsTask() {
   );
 }
 
-function jsDistTask() {
-  return src([srcFiles.jsPath])
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(
-      babel({
-        presets: ['@babel/preset-env']
-      })
-    )
-    .pipe(concat('all.js'))
-    .pipe(rename({ extname: '.min.js' }))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
-    .pipe(dest(distFiles.distJSPath));
-}
+// function jsDistTask() {
+//   return src([srcFiles.jsPath])
+//     .pipe(sourcemaps.init({ loadMaps: true }))
+//     .pipe(
+//       babel({
+//         presets: ['@babel/preset-env']
+//       })
+//     )
+//     .pipe(concat('all.js'))
+//     .pipe(rename({ extname: '.min.js' }))
+//     .pipe(uglify())
+//     .pipe(sourcemaps.write('./'))
+//     .pipe(dest(distFiles.distJSPath));
+// }
 
 // optimize images
 function images() {
@@ -138,6 +160,7 @@ function images() {
 }
 
 // delete dist files before running build
+// !dist/images used to explicitly ignore the parent directories
 function cleanDistForBuild() {
   return del([distFiles.distPath, '!dist/images', '!dist/css', '!dist/js']);
 }
@@ -205,7 +228,7 @@ function watchTask() {
 // you should add your tasks to be run first time
 // then any change in them will be managed by watchTask
 exports.default = series(
-  parallel(scssTask, jsTask, images, initIndexHtml, copyImagesTask),
+  parallel(scssTask, jsTask, images, initIndexHtml, copyImagesTask, copyfontawesomeWebfontsTask),
   cacheBustTask,
   parallel(serveTask, watchTask)
 );
@@ -213,5 +236,5 @@ exports.default = series(
 // to produce a production version
 exports.build = series(
   cleanDistForBuild,
-  parallel(scssTask, jsTask, images, copyHTMLTask, copyImagesTask)
+  parallel(scssTask, jsTask, images, copyHTMLTask, copyImagesTask, copyfontawesomeWebfontsTask)
 );
