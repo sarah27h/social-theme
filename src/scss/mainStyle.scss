@@ -2,17 +2,87 @@
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss';
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss';
-@import 'base/_variables';
+@import 'base/_config';
+@import 'base/_utilities';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 body {
-  background: $bgcolor;
+  background: $bg-color;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
 }
 
 h1 {
   font-size: 30px;
-  color: $mainheadingcolor;
 }
 
-::placeholder {
-  color: $placeholderColor;
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+//navbar
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  padding: 0.5rem 1.5rem;
+
+  h1 {
+    width: 40%;
+    font-size: 30px;
+    color: #333;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: $secondary-color;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  ul {
+    width: 60%;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+//landing
+.landing {
+  position: relative;
+  background: url('../images/showcase.jpg') no-repeat center center/cover;
+  height: 100vh; /* stretch img to entire height of browser*/
+
+  &-inner {
+    color: $secondary-color;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+  }
 }
