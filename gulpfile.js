@@ -179,13 +179,6 @@ function cacheBustTask() {
     .pipe(dest('.')); // put in the same place
 }
 
-// function cacheBustTask() {
-//   const cbString = new Date().getTime();
-//   return src('index.html')
-//     .pipe(replace(/cb=\d+/g, 'cb=' + cbString))
-//     .pipe(dest('.')); // put in the same place
-// }
-
 // start server
 // using done
 // Gulp needs this hint if you want to order a series of tasks that depend on each other
