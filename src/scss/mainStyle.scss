@@ -2,8 +2,9 @@
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss';
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
 @import '../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss';
-@import 'base/_config';
-@import 'base/_utilities';
+@import 'config';
+@import 'utilities';
+@import 'form';
 
 * {
   padding: 0;
@@ -60,7 +61,7 @@ a {
   }
 
   ul {
-    width: 60%;
+    width: 40%;
     list-style: none;
     display: flex;
     justify-content: space-around;
@@ -84,5 +85,29 @@ a {
     margin: auto;
     align-items: center;
     text-align: center;
+  }
+}
+
+//profile
+.profile {
+  display: flex;
+  max-width: 600px;
+  margin: 20px auto;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 20px;
+  line-height: 1.8;
+  font-size: 14px;
+
+  img {
+    width: 30%;
+  }
+
+  &-info {
+    width: 50%;
+  }
+
+  h2 {
+    font-size: 1.2rem;
   }
 }
