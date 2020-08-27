@@ -224,12 +224,12 @@ function watchTask() {
 
 // deploy to github pages
 const options = {
-  remoteUrl: 'https://github.com/sarah27h/sarah27h.github.io.git',
+  remoteUrl: 'https://github.com/sarah27h/social-network-theme.github.io.git',
   branch: 'master'
 };
 
 function publish() {
-  return src('./dist/**/*').pipe(deploy());
+  return src('./dist/**/*').pipe(deploy(options));
 }
 
 // you should add your tasks to be run first time
