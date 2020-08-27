@@ -167,6 +167,14 @@ function templateTask() {
     .pipe(dest(distFiles.distPath));
 }
 
+// dynamically change href and src in web pages in production
+function templatePagesTask() {
+  return src([srcFiles.htmlPath])
+    .pipe(replace(/mainStyle.css/g, 'mainStyle.min.css'))
+    .pipe(replace(/all.js/g, 'all.min.js'))
+    .pipe(dest(distFiles.distPagesPath));
+}
+
 // Cache busting solves the browser caching issue
 // by using a unique file version identifier to
 // tell the browser that a new version of the file is available.
@@ -223,14 +231,14 @@ function watchTask() {
 }
 
 // deploy to github pages
-const options = {
-  remoteUrl: 'https://github.com/sarah27h/social-network-theme.github.io.git',
-  branch: 'master'
-};
+// const options = {
+//   remoteUrl: 'https://github.com/sarah27h/social-network-theme.github.io.git',
+//   branch: 'master'
+// };
 
-function publish() {
-  return src('./dist/**/*').pipe(deploy(options));
-}
+// function publish() {
+//   return src('./dist/**/*').pipe(deploy(options));
+// }
 
 // you should add your tasks to be run first time
 // then any change in them will be managed by watchTask
@@ -257,10 +265,8 @@ exports.build = series(
     jsTask,
     images,
     templateTask,
-    copyHTMLTask,
+    templatePagesTask,
     copyImagesTask,
     copyfontawesomeWebfontsTask
   )
 );
-
-exports.publish = publish;
