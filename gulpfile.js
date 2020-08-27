@@ -28,6 +28,8 @@ const imagemin = require('gulp-imagemin');
 const imageminPngquant = require('imagemin-pngquant');
 const fileExists = require('file-exists');
 
+const deploy = require('gulp-gh-pages');
+
 const srcFiles = {
   mainScssPath: 'src/scss/**/mainStyle.scss',
   scssPagesPath: 'src/scss/pagesStyles/**/*.scss',
@@ -220,6 +222,16 @@ function watchTask() {
   // watch(srcFiles.htmlPath).on('change', browserSync.reload);
 }
 
+// deploy to github pages
+const options = {
+  remoteUrl: 'https://github.com/sarah27h/sarah27h.github.io.git',
+  branch: 'master'
+};
+
+function publish() {
+  return src('./dist/**/*').pipe(deploy());
+}
+
 // you should add your tasks to be run first time
 // then any change in them will be managed by watchTask
 exports.default = series(
@@ -250,3 +262,5 @@ exports.build = series(
     copyfontawesomeWebfontsTask
   )
 );
+
+exports.publish = publish;
