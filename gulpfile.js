@@ -231,14 +231,14 @@ function watchTask() {
 }
 
 // deploy to github pages
-// const options = {
-//   remoteUrl: 'https://github.com/sarah27h/social-network-theme.github.io.git',
-//   branch: 'master'
-// };
+const options = {
+  remoteUrl: 'https://github.com/sarah27h/social-theme.github.io.git',
+  branch: 'master'
+};
 
-// function publish() {
-//   return src('./dist/**/*').pipe(deploy(options));
-// }
+function publish() {
+  return src('./dist/**/*').pipe(deploy(options));
+}
 
 // you should add your tasks to be run first time
 // then any change in them will be managed by watchTask
@@ -270,3 +270,6 @@ exports.build = series(
     copyfontawesomeWebfontsTask
   )
 );
+
+// to deploy a production version
+exports.publish = publish;
